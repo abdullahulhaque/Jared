@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jared - Your Personal Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #101820;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .header {
+            background-color: #0c2430;
+            padding: 20px;
+        }
+        .header img {
+            width: 150px;
+            border-radius: 50%;
+        }
+        .header h1 {
+            margin: 10px 0 0;
+            font-size: 2em;
+            color: #00aaff;
+        }
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+        .section {
+            margin: 20px 0;
+        }
+        .section h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #00aaff;
+        }
+        .signup-section form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .signup-section input[type="email"] {
+            padding: 10px;
+            width: 300px;
+            max-width: 80%;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        .signup-section input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #00aaff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .video-section video {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .social-section a {
+            margin: 0 10px;
+            color: #00aaff;
+            text-decoration: none;
+        }
+        .footer {
+            background-color: #0c2430;
+            padding: 10px;
+        }
+        .footer p {
+            margin: 0;
+            font-size: 0.8em;
+            color: #888888;
+        }
+        .message {
+            color: #00ff00;
+            font-size: 1.2em;
+        }
+        .error {
+            color: #ff0000;
+            font-size: 1.2em;
+        }
+    </style>
+    <script>
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const data = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    document.getElementById('message').textContent = "Thank you for signing up!";
+                    document.getElementById('message').className = "message";
+                    form.reset();
+                } else {
+                    throw new Error('Failed to sign up');
+                }
+            } catch (error) {
+                document.getElementById('message').textContent = "Failed to sign up. Please try again.";
+                document.getElementById('message').className = "error";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <img src="jaredPFP.png" alt="Jared Logo">
+        <h1>Introducing... Jared</h1>
+    </div>
+    <div class="main">
+        <section class="section signup-section">
+            <h2>Sign Up for Updates</h2>
+            <form action="https://formspree.io/f/xrbzpyqg" method="POST" onsubmit="handleFormSubmit(event)">
+                <input type="email" name="email" placeholder="Enter your email" required>
+                <input type="submit" value="Sign Up">
+            </form>
+            <p id="message"></p>
+        </section>
+        <section class="section video-section">
+            <h2>See Jared in Action</h2>
+            <video controls>
+                <source src="path_to_your_video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+        <section class="section social-section">
+            <h2>Follow Jared</h2>
+            <a href="https://www.linkedin.com/in/your-linkedin" target="_blank">LinkedIn</a>
+            <a href="https://www.tiktok.com/@your-tiktok" target="_blank">TikTok</a>
+        </section>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Jared. All rights reserved.</p>
+    </div>
+</body>
+</html>
